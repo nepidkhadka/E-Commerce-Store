@@ -14,7 +14,7 @@ const Nav = () => {
           <nav aria-label="Global" className="hidden md:block"></nav>
 
           <div className="flex items-center gap-4">
-            <div className="sm:flex sm:gap-4">
+            <div className="flex gap-4">
               <NavLink
                 className={({isActive})=>`${isActive?"bg-teal-600 text-white":"bg-gray-200 text-teal-600 hover:text-gray-100"} block rounded-md px-5 py-2.5 text-sm font-medium transition hover:bg-teal-700`}
                 to="/product"
@@ -41,7 +41,7 @@ const Nav = () => {
                 stroke-width="2"
               >
                 <path
-                  stroke-linecap="round"
+                  stroke-Linecap="round"
                   stroke-linejoin="round"
                   d="M4 6h16M4 12h16M4 18h16"
                 />
