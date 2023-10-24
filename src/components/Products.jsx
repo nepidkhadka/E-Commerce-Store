@@ -6,7 +6,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../Store/cartSlice";
 
-
 const Products = () => {
   const [product, setproduct] = useState([]);
   const [error, seterror] = useState();
@@ -17,7 +16,7 @@ const Products = () => {
   const fetchData = async () => {
     try {
       let res = await axios.get("https://api.escuelajs.co/api/v1/products");
-      setproduct(res.data);
+      setproduct(res.data.slice(0,50));
     } catch (err) {
       seterror(err);
     }
@@ -77,18 +76,17 @@ const Products = () => {
             ))}
           </div>
         </div>
-      ) 
-      : 
-      (
+      ) : (
         <div className="container p-8 m-auto">
           <div className="flex justify-center items-center flex-wrap gap-4 ">
-            {product.slice(0, 40).map((product,i) => (
-              <div key={i}
+            {product.slice(10, 50).map((product, i) => (
+              <div
+                key={i}
                 // to={`${product.id}`}
                 className="group relative block overflow-hidden"
               >
                 <img
-                  src={product.images}
+                  src={product.images[0]}
                   alt=""
                   className="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"
                 />
@@ -102,7 +100,19 @@ const Products = () => {
                     Rs. {product.price}
                   </p>
 
-                  <button onClick={()=>{dispatch(addToCart({id:product.id,title:product.title, price:product.price, image:product.images}))}} className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105">
+                  <button
+                    onClick={() => {
+                      dispatch(
+                        addToCart({
+                          id: product.id,
+                          title: product.title,
+                          price: product.price,
+                          image: product.images,
+                        })
+                      );
+                    }}
+                    className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105"
+                  >
                     Add to Cart
                   </button>
                 </div>
