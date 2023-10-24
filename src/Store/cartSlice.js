@@ -10,9 +10,7 @@ export const cartSlice = createSlice({
   reducers: 
   {
     addToCart:(state, action) =>{
-      const existingproduct = state.cartproduct.find(
-        (product) => product.id === action.payload.id
-      );
+      const existingproduct = state.cartproduct.find((product) => product.id === action.payload.id);
       if (!existingproduct) {
         const cartproduct = {
           id: action.payload.id,
@@ -22,14 +20,12 @@ export const cartSlice = createSlice({
         };
         state.cartproduct.push(cartproduct);
       } else {
-        alert("Added Already");
+        alert("Already In Cart");
       }
     },
 
     removeFromCart:(state, action) =>{
-      state.cartproduct = state.cartproduct.filter(
-        (product) => product.id != action.payload
-      );
+      state.cartproduct = state.cartproduct.filter((product) => product.id != action.payload);
     },
   },
 });

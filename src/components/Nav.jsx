@@ -10,7 +10,6 @@ const Nav = () => {
     <header className="bg-gray-400 sticky z-10 top-0 left-0">
       <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
         <NavLink className={({isActive})=>`${isActive ? "text-gray-100":"text-gray-200"} font-medium text-white text-lg `} to="/">
-          {/* <span className="sr-only">Home</span> */}
         Home
         </NavLink>
 
