@@ -98,7 +98,7 @@ const Products = () => {
                     Rs. {product.price}
                   </p>
 
-                  <Link to={`${product.id}`}>
+                  <Link to={`/product/${product.id}`}>
                     <button className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105">
                       View Details
                     </button>

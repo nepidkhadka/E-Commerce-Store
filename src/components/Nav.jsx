@@ -20,7 +20,7 @@ const Nav = () => {
             <div className="flex gap-4">
               <NavLink
                 className={({isActive})=>`${isActive?"bg-teal-600 text-white":"bg-gray-200 text-teal-600 hover:text-gray-100"} block rounded-md px-5 py-2.5 text-sm font-medium transition hover:bg-teal-700`}
-                to="/product"
+                to="/products"
               >
                 Products
               </NavLink>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { addToCart } from "../Store/cartSlice";
 
 const Product = () => {
@@ -27,7 +27,57 @@ const Product = () => {
 
   return (
     <>
-      <div className="container px-5 py-24 mx-auto" style={{ cursor: "auto" }}>
+      <nav aria-label="Breadcrumb" class="flex my-4 px-5 ">
+        <ol class="flex overflow-hidden rounded-lg border mx-auto border-gray-200 text-gray-600">
+          <li class="flex items-center">
+            <Link
+              to="/"
+              class="flex h-10 items-center gap-1.5 bg-gray-100 px-4 transition hover:text-gray-900"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
+
+              <span class="ms-1.5 text-xs font-medium"> Home </span>
+            </Link>
+          </li>
+
+          <li class="relative flex items-center">
+            <span class="absolute inset-y-0 -start-px h-10 w-4 bg-gray-100 [clip-path:_polygon(0_0,_0%_100%,_100%_50%)] rtl:rotate-180"></span>
+
+            <Link
+              to="/products"
+              class="flex h-10 items-center bg-gray-100 pe-4 ps-8 text-xs font-medium transition hover:text-gray-900"
+            >
+              Products
+            </Link>
+          </li>
+
+          <li class="relative flex items-center">
+            <span class="absolute inset-y-0 -start-px h-10 w-4 bg-gray-100 [clip-path:_polygon(0_0,_0%_100%,_100%_50%)] rtl:rotate-180"></span>
+
+            <Link
+              to={`/product/${product?product.id:""}`}
+              class="flex h-10 items-center bg-white pe-4 ps-8 text-xs font-medium transition hover:text-gray-900"
+            >
+              Product
+            </Link>
+          </li>
+        </ol>
+      </nav>
+
+      <div className="container px-5 py-24" style={{ cursor: "auto" }}>
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <img
             alt="ecommerce"
@@ -146,11 +196,13 @@ const Product = () => {
                 </div>
               </div>
             </div>
-            <div className="flex">
-              <button className="w-1/3 text-white bg-teal-600 border-0 py-2 px-6 focus:outline-none hover:bg-teal-700 rounded">
+            <div className="flex justify-end ">
+              <span className="title-font font-semibold text-3xl text-gray-900 mr-4">
+                Rs.{product ? product.price : ""}
+              </span>
+              <button className=" ml-auto mr-4 text-white bg-teal-600 border-0 py-2 px-6 focus:outline-none hover:bg-teal-700 rounded">
                 Buy
               </button>
-
               <button
                 onClick={() => {
                   dispatch(
@@ -162,7 +214,7 @@ const Product = () => {
                     })
                   );
                 }}
-                className="flex ml-auto text-white border-0 py-2 px-6 focus:outline-none bg-yellow-400 hover:bg-yellow-500 rounded"
+                className="flex text-white border-0 py-2 px-6 focus:outline-none bg-yellow-400 hover:bg-yellow-500 rounded"
               >
                 Add To Cart
               </button>

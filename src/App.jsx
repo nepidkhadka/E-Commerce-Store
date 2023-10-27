@@ -12,7 +12,7 @@ function App() {
       <Nav />
       <Routes>
         <Route index element={<Home/>} />
-        <Route path="/product"  element={<Products/>} />
+        <Route path="/products"  element={<Products/>} />
         <Route path="/product/:id"  element={ <Product/> } />
         <Route path="/cart"  element={<Cart/>} />
       </Routes>
