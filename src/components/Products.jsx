@@ -1,10 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../Store/cartSlice";
 
 const Products = () => {
   const [product, setproduct] = useState([]);
@@ -16,7 +15,7 @@ const Products = () => {
   const fetchData = async () => {
     try {
       let res = await axios.get("https://api.escuelajs.co/api/v1/products");
-      setproduct(res.data.slice(0,50));
+      setproduct(res.data.slice(0, 50));
     } catch (err) {
       seterror(err);
     }
@@ -31,7 +30,10 @@ const Products = () => {
 
   if (error != null)
     return (
-      <div role="alert" className="rounded border-s-4 border-red-500 bg-red-50 p-4">
+      <div
+        role="alert"
+        className="rounded border-s-4 border-red-500 bg-red-50 p-4"
+      >
         <div className="flex items-center gap-2 text-red-800">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -80,11 +82,7 @@ const Products = () => {
         <div className="container p-8 m-auto">
           <div className="flex justify-center items-center flex-wrap gap-4 ">
             {product.slice(10, 50).map((product, i) => (
-              <div
-                key={i}
-                // to={`${product.id}`}
-                className="group relative block overflow-hidden"
-              >
+              <div key={i} className="group relative block overflow-hidden">
                 <img
                   src={product.images[0]}
                   alt=""
@@ -100,21 +98,11 @@ const Products = () => {
                     Rs. {product.price}
                   </p>
 
-                  <button
-                    onClick={() => {
-                      dispatch(
-                        addToCart({
-                          id: product.id,
-                          title: product.title,
-                          price: product.price,
-                          image: product.images,
-                        })
-                      );
-                    }}
-                    className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105"
-                  >
-                    Add to Cart
-                  </button>
+                  <Link to={`${product.id}`}>
+                    <button className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105">
+                      View Details
+                    </button>
+                  </Link>
                 </div>
               </div>
             ))}
