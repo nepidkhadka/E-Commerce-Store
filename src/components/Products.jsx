@@ -5,17 +5,16 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useDispatch } from "react-redux";
 
-const Products = () => {
+const Products = (props) => {
   const [product, setproduct] = useState([]);
   const [error, seterror] = useState();
   const [loading, setloading] = useState(true);
-
-  const dispatch = useDispatch();
+  const limit = props.value;
 
   const fetchData = async () => {
     try {
-      let res = await axios.get("https://api.escuelajs.co/api/v1/products");
-      setproduct(res.data.slice(0, 50));
+      let res = await axios.get(`https://api.escuelajs.co/api/v1/products/?${limit?"offset=0&limit=12":""}`);
+      setproduct(res.data.slice(4,50));
     } catch (err) {
       seterror(err);
     }
@@ -81,7 +80,7 @@ const Products = () => {
       ) : (
         <div className="container p-8 m-auto">
           <div className="flex justify-center items-center flex-wrap gap-4 ">
-            {product.slice(10, 50).map((product, i) => (
+            {product.map((product, i) => (
               <div key={i} className="group relative block overflow-hidden">
                 <img
                   src={product.images[0]}

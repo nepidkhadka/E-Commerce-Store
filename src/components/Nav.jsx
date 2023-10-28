@@ -4,7 +4,7 @@ import {useSelector } from "react-redux";
 
 const Nav = () => {
 
-  const cartProduct = useSelector(state=>state.cart.cartproduct);
+  const cartProduct = useSelector(state=>state.cart);
 
   return (
     <header className="bg-gray-400 sticky z-10 top-0 left-0">

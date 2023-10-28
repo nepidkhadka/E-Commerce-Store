@@ -1,16 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  cartproduct: [],
-};
+const local =  localStorage.getItem("cartproduct") !== null
+    ? JSON.parse(localStorage.getItem("cartproduct"))
+    : [];
+
+// const initialState = {
+//   cartproduct: local,
+// };
 
 export const cartSlice = createSlice({
   name: "cart",
-  initialState,
-  reducers: 
-  {
-    addToCart:(state, action) =>{
-      const existingproduct = state.cartproduct.find((product) => product.id === action.payload.id);
+  initialState:local,
+  reducers: {
+    addToCart: (state, action) => {
+      const existingproduct = state.find(
+        (product) => product.id === action.payload.id
+      );
       if (!existingproduct) {
         const cartproduct = {
           id: action.payload.id,
@@ -18,14 +23,19 @@ export const cartSlice = createSlice({
           price: action.payload.price,
           image: action.payload.image,
         };
-        state.cartproduct.push(cartproduct);
+        state.push(cartproduct);
+        localStorage.setItem("cartproduct", JSON.stringify(state.map((products) => products))
+        );
       } else {
         alert("Already In Cart");
       }
     },
 
-    removeFromCart:(state, action) =>{
-      state.cartproduct = state.cartproduct.filter((product) => product.id != action.payload);
+    removeFromCart: (state, action) => {
+      const filteredproducts = state.filter(product => product.id != action.payload);
+      console.log(filteredproducts);
+      localStorage.setItem("cartproduct", JSON.stringify(filteredproducts))
+      return filteredproducts;
     },
   },
 });

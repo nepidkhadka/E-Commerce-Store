@@ -17,7 +17,7 @@ const Product = () => {
       );
       setproduct(res.data);
     } catch (err) {
-      seterror(err);
+      console.log(err);
     }
   };
 
@@ -27,49 +27,49 @@ const Product = () => {
 
   return (
     <>
-      <nav aria-label="Breadcrumb" class="flex my-4 px-5 ">
-        <ol class="flex overflow-hidden rounded-lg border mx-auto border-gray-200 text-gray-600">
-          <li class="flex items-center">
+      <nav aria-label="Breadcrumb" className="flex mt-10 px-5 ">
+        <ol className="inline-flex overflow-hidden rounded-lg border mx-auto border-gray-200 text-gray-600">
+          <li className="flex items-center">
             <Link
               to="/"
-              class="flex h-10 items-center gap-1.5 bg-gray-100 px-4 transition hover:text-gray-900"
+              className="flex h-10 items-center gap-1.5 bg-gray-100 px-4 transition hover:text-gray-900"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
+                className="h-4 w-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                 />
               </svg>
 
-              <span class="ms-1.5 text-xs font-medium"> Home </span>
+              <span className="ms-1.5 text-xs font-medium"> Home </span>
             </Link>
           </li>
 
-          <li class="relative flex items-center">
-            <span class="absolute inset-y-0 -start-px h-10 w-4 bg-gray-100 [clip-path:_polygon(0_0,_0%_100%,_100%_50%)] rtl:rotate-180"></span>
+        <li className="relative flex items-center">
+            <span className="absolute inset-y-0 -start-px h-10 w-4 bg-gray-100 [clip-path:_polygon(0_0,_0%_100%,_100%_50%)] rtl:rotate-180"></span>
 
             <Link
               to="/products"
-              class="flex h-10 items-center bg-gray-100 pe-4 ps-8 text-xs font-medium transition hover:text-gray-900"
+              className="flex h-10 items-center bg-gray-100 pe-4 ps-8 text-xs font-medium transition hover:text-gray-900"
             >
               Products
             </Link>
           </li>
 
-          <li class="relative flex items-center">
-            <span class="absolute inset-y-0 -start-px h-10 w-4 bg-gray-100 [clip-path:_polygon(0_0,_0%_100%,_100%_50%)] rtl:rotate-180"></span>
+          <li className="relative flex items-center">
+            <span className="absolute inset-y-0 -start-px h-10 w-4 bg-gray-100 [clip-path:_polygon(0_0,_0%_100%,_100%_50%)] rtl:rotate-180"></span>
 
             <Link
               to={`/product/${product?product.id:""}`}
-              class="flex h-10 items-center bg-white pe-4 ps-8 text-xs font-medium transition hover:text-gray-900"
+              className="flex h-10 items-center bg-white pe-4 ps-8 text-xs font-medium transition hover:text-gray-900"
             >
               Product
             </Link>
@@ -77,6 +77,7 @@ const Product = () => {
         </ol>
       </nav>
 
+        
       <div className="container px-5 py-24" style={{ cursor: "auto" }}>
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <img
@@ -101,7 +102,7 @@ const Product = () => {
             >
               {product ? product.title : ""}
             </h1>
-            <div className="flex mb-4">
+            {/* <div className="flex mb-4">
               <span className="flex items-center">
                 <svg
                   fill="currentColor"
@@ -160,11 +161,11 @@ const Product = () => {
                 </svg>
                 <span className="text-gray-600 ml-3">20 Reviews</span>
               </span>
-            </div>
+            </div> */}
             <p className="leading-relaxed">
               {product ? product.description : ""}
             </p>
-            <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
+            {/* <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
               <div className="flex">
                 <span className="mr-3">Color</span>
                 <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"></button>
@@ -195,8 +196,8 @@ const Product = () => {
                   </span>
                 </div>
               </div>
-            </div>
-            <div className="flex justify-end ">
+            </div> */}
+            <div className="mt-16 flex justify-end ">
               <span className="title-font font-semibold text-3xl text-gray-900 mr-4">
                 Rs.{product ? product.price : ""}
               </span>
