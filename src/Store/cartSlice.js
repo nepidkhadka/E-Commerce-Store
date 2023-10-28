@@ -13,9 +13,7 @@ export const cartSlice = createSlice({
   initialState:local,
   reducers: {
     addToCart: (state, action) => {
-      const existingproduct = state.find(
-        (product) => product.id === action.payload.id
-      );
+      const existingproduct = state.find((product) => product.id === action.payload.id);
       if (!existingproduct) {
         const cartproduct = {
           id: action.payload.id,
@@ -33,7 +31,6 @@ export const cartSlice = createSlice({
 
     removeFromCart: (state, action) => {
       const filteredproducts = state.filter(product => product.id != action.payload);
-      console.log(filteredproducts);
       localStorage.setItem("cartproduct", JSON.stringify(filteredproducts))
       return filteredproducts;
     },
