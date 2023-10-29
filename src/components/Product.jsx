@@ -1,16 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { addToCart } from "../Store/cartSlice";
+import { addToCart, removeFromCart } from "../Store/cartSlice";
 
 const Product = () => {
   const [product, setproduct] = useState();
   const { id } = useParams();
   const [loading, setloading] = useState(true);
-
+  const state = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-
   const fetchData = async () => {
     try {
       let res = await axios.get(
@@ -84,10 +83,10 @@ const Product = () => {
       {loading ? (
         <div className="absolute left-2/4 top-1/2">
           <div
-            class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid text-teal-600 border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+            className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid text-teal-600 border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
             role="status"
           >
-            <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
               Loading...
             </span>
           </div>
@@ -217,21 +216,37 @@ const Product = () => {
                   <span className="title-font font-semibold text-3xl text-gray-900">
                     Rs.{product ? product.price : ""}
                   </span>
-                  <button
-                    onClick={() => {
-                      dispatch(
-                        addToCart({
-                          id: product.id,
-                          title: product.title,
-                          price: product.price,
-                          image: product.images,
-                        })
-                      );
-                    }}
-                    className="ml-auto mr-2 flex text-white border-0 py-2 px-6 focus:outline-none bg-yellow-400 hover:bg-yellow-500 rounded"
-                  >
-                    Add To Cart
-                  </button>
+                  {!state.find(
+                    (stateproduct) => stateproduct.id === product.id
+                  ) && (
+                    <button
+                      onClick={() => {
+                        dispatch(
+                          addToCart({
+                            id: product.id,
+                            title: product.title,
+                            price: product.price,
+                            image: product.images,
+                          })
+                        );
+                      }}
+                      className="ml-auto mr-2 flex text-white border-0 py-2 px-6 focus:outline-none bg-yellow-400 hover:bg-yellow-500 rounded"
+                    >
+                      Add To Cart
+                    </button>
+                  )}
+                  {state.find(
+                    (stateproduct) => stateproduct.id === product.id
+                  ) && (
+                    <button
+                      onClick={() => {
+                        dispatch(removeFromCart(product.id));
+                      }}
+                      className="ml-auto mr-2 flex text-white border-0 py-2 px-6 focus:outline-none bg-red-500 hover:bg-red-600 rounded"
+                    >
+                      Remove From Cart
+                    </button>
+                  )}
                   <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500  sm:ml-4">
                     <svg
                       fill="currentColor"
