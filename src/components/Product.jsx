@@ -235,9 +235,7 @@ const Product = () => {
                       Add To Cart
                     </button>
                   )}
-                  {state.find(
-                    (stateproduct) => stateproduct.id === product.id
-                  ) && (
+                  {state.find((stateproduct) => stateproduct.id === product.id) && (
                     <button
                       onClick={() => {
                         dispatch(removeFromCart(product.id));

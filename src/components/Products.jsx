@@ -3,13 +3,16 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Products = (props) => {
   const [product, setproduct] = useState([]);
   const [error, seterror] = useState();
   const [loading, setloading] = useState(true);
   const limit = props.value;
+  const dispatch = useDispatch;
+  const product1 = useSelector((state)=>state.products.data)
+  console.log(product1)
 
   const fetchData = async () => {
     try {

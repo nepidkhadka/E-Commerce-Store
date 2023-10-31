@@ -35,7 +35,7 @@ const Home = () => {
         <h2 className="text-xl text-center my-8 font-bold text-gray-900 sm:text-3xl">
           Featured Products
         </h2>
-        <Products value="10" />
+        {/* <Products value="10" /> */}
         
       </section>
     </>
