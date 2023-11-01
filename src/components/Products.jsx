@@ -1,36 +1,35 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../Store/productSlice";
+
 
 const Products = (props) => {
-  const [product, setproduct] = useState([]);
-  const [error, seterror] = useState();
-  const [loading, setloading] = useState(true);
+  // const [product, setproduct] = useState([]);
+  // const [error, seterror] = useState();
+  // const [loading, setloading] = useState(true);
   const limit = props.value;
-  const dispatch = useDispatch;
-  const product1 = useSelector((state)=>state.products.data)
-  console.log(product1)
+  const dispatch = useDispatch();
+  const {data:product, status} = useSelector((state)=>state.products)
+  const url =`https://api.escuelajs.co/api/v1/products/${limit?"?offset=0&limit=12":""}`
 
-  const fetchData = async () => {
-    try {
-      let res = await axios.get(`https://api.escuelajs.co/api/v1/products/?${limit?"offset=0&limit=12":""}`);
-      setproduct(res.data.slice(4,50));
-    } catch (err) {
-      seterror(err);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     let res = await axios.get(`https://api.escuelajs.co/api/v1/products/?${limit?"offset=0&limit=12":""}`);
+  //     setproduct(res.data.slice(4,50));
+  //   } catch (err) {
+  //     seterror(err);
+  //   }
+  // };
 
   useEffect(() => {
-    fetchData();
-    setTimeout(() => {
-      setloading(false);
-    }, 1500);
-  }, []);
+    dispatch(getProducts(url))
+    }, [dispatch]);
 
-  if (error != null)
+  if (status === "Rejected")
     return (
       <div
         role="alert"
@@ -50,16 +49,16 @@ const Products = (props) => {
             />
           </svg>
 
-          <strong className="block font-medium"> {error.code} </strong>
+          <strong className="block font-medium"> Error Fetching Data </strong>
         </div>
 
-        <p className="mt-2 text-sm text-red-700">{error.message}</p>
+        <p className="mt-2 text-sm text-red-700">Products Couldn't Be Fetched</p>
       </div>
     );
 
   return (
     <>
-      {loading ? (
+      {status=="Pending" ? (
         <div className="container p-8 m-auto">
           <div className="flex justify-center items-center flex-wrap gap-4 ">
             {Array.from({ length: 20 }).map((_, index) => (
