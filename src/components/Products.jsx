@@ -1,17 +1,17 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../Store/productSlice";
+import StatusCode from "../utils/StatusCode";
 
 
-const Products = (props) => {
+
+const Products = ({limit}) => {
   // const [product, setproduct] = useState([]);
   // const [error, seterror] = useState();
   // const [loading, setloading] = useState(true);
-  const limit = props.value;
   const dispatch = useDispatch();
   const {data:product, status} = useSelector((state)=>state.products)
   const url =`https://api.escuelajs.co/api/v1/products/${limit?"?offset=0&limit=12":""}`
@@ -29,7 +29,7 @@ const Products = (props) => {
     dispatch(getProducts(url))
     }, [dispatch]);
 
-  if (status === "Rejected")
+  if (status === StatusCode.REJECTED)
     return (
       <div
         role="alert"
@@ -58,7 +58,7 @@ const Products = (props) => {
 
   return (
     <>
-      {status=="Pending" ? (
+      {status===StatusCode.PENDING ? (
         <div className="container p-8 m-auto">
           <div className="flex justify-center items-center flex-wrap gap-4 ">
             {Array.from({ length: 20 }).map((_, index) => (
