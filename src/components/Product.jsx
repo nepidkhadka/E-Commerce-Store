@@ -14,7 +14,7 @@ const Product = () => {
   const fetchData = async () => {
     try {
       let res = await axios.get(
-        `https://api.escuelajs.co/api/v1/products/${id}`
+        `https://dummyjson.com/products/${id}`
       );
       setproduct(res.data);
     } catch (err) {
@@ -99,7 +99,7 @@ const Product = () => {
               <img
                 alt="ecommerce"
                 className="sm:w-1/3 w-4/5 object-cover object-center rounded"
-                src={product ? product.images : ""}
+                src={product ? product.images[0]: ""}
                 style={{ cursor: "auto" }}
               />
               <div
@@ -123,7 +123,7 @@ const Product = () => {
                 </p>
                 <div className="mt-16 flex flex-wrap justify-between">
                   <span className="title-font font-semibold text-3xl text-gray-900">
-                    Rs.{product ? product.price : ""}
+                    $ {product ? product.price : ""}
                   </span>
                   {!state.find(
                     (stateproduct) => stateproduct.id === product.id
@@ -135,7 +135,7 @@ const Product = () => {
                             id: product.id,
                             title: product.title,
                             price: product.price,
-                            image: product.images,
+                            image: product.images[1],
                           })
                         );
                       }}

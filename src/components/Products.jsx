@@ -14,7 +14,7 @@ const Products = ({limit}) => {
   // const [loading, setloading] = useState(true);
   const dispatch = useDispatch();
   const {data:product, status} = useSelector((state)=>state.products)
-  const url =`https://api.escuelajs.co/api/v1/products/${limit?"?offset=0&limit=12":""}`
+  const url =`https://dummyjson.com/products/${limit?"?&limit=8":""}`
 
   // const fetchData = async () => {
   //   try {
@@ -83,11 +83,11 @@ const Products = ({limit}) => {
         <div className="container p-8 m-auto">
           <div className="flex justify-center items-center flex-wrap gap-4 ">
             {product.map((product, i) => (
-              <div key={i} className="group relative block overflow-hidden">
+              <div key={i} className="group w-80 h-[470px] relative block overflow-hidden">
                 <img
-                  src={product.images[0]}
+                  src={product.thumbnail}
                   alt=""
-                  className="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"
+                  className="object-cover m-auto transition duration-500 group-hover:scale-105 sm:h-72"
                 />
 
                 <div className="relative border-2 border-gray-100 bg-white p-6">
@@ -95,8 +95,8 @@ const Products = ({limit}) => {
                     {product.title}
                   </h3>
 
-                  <p className="mt-1.5 text-sm text-gray-700">
-                    Rs. {product.price}
+                  <p className="my-1.5 text-sm text-gray-700">
+                    $ {product.price}
                   </p>
 
                   <Link to={`/product/${product.id}`}>

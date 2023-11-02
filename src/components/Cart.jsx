@@ -22,7 +22,7 @@ const Cart = () => {
                   <img
                     src={product.image}
                     alt=""
-                    className="h-16 w-16 rounded object-cover"
+                    className="h-20 w-16 rounded object-cover"
                   />
 
                   <div>
@@ -31,9 +31,9 @@ const Cart = () => {
                     <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
                       <div>
                         <dt className="inline text-sm font-semibold ">
-                          Price:{" "}
+                          Price: $ {product.price}
                         </dt>
-                        <dd className="inline text-sm ">Rs. {product.price}</dd>
+                        {/* <dd className="inline text-sm ">Rs. {product.price}</dd> */}
                       </div>
                     </dl>
                   </div>

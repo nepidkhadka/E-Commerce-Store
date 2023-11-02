@@ -12,7 +12,7 @@ export const productSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getProducts.fulfilled, (state, action) => {
-        state.data = action.payload.slice(4, 50);
+        state.data = action.payload.products;
         state.status = StatusCode.FULFILLED;
       })
       .addCase(getProducts.pending, (state) => {
