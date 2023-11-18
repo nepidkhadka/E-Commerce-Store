@@ -5,8 +5,10 @@ import Nav from "./components/Nav";
 import Home from "./components/Home";
 import Cart from "./components/Cart";
 import Product from "./components/Product";
+import Login from "./components/Authentication/Login"
 
 function App() {
+  
   return (
     <>
       <Nav />
@@ -15,6 +17,7 @@ function App() {
         <Route path="/products"  element={<Products/>} />
         <Route path="/product/:id"  element={ <Product/> } />
         <Route path="/cart"  element={<Cart/>} />
+        <Route path="/login"  element={<Login />} />
       </Routes>
     </>
   );

@@ -5,6 +5,7 @@ import {useSelector } from "react-redux";
 const Nav = () => {
 
   const cartProduct = useSelector(state=>state.cart);
+  const token = localStorage.getItem("token");
 
   return (
     <header className="bg-gray-400 sticky z-10 top-0 left-0">
@@ -15,7 +16,6 @@ const Nav = () => {
 
         <div className="flex flex-1 items-center justify-end md:justify-between">
           <nav aria-label="Global" className="hidden md:block"></nav>
-
           <div className="flex items-center gap-4">
             <div className="flex gap-4">
               <NavLink
@@ -31,6 +31,10 @@ const Nav = () => {
               >
                 Cart ({cartProduct.length})
               </NavLink>
+
+              {
+                token==null? (<NavLink className={({isActive})=>`${isActive?"bg-indigo-600 text-white":"bg-indigo-600 text-white hover:text-gray-100"} block rounded-md px-5 py-2.5 text-sm font-medium  transition hover:bg-indigo-500 ml-5`} to="/login">Login</NavLink>) : (<NavLink className={({isActive})=>`${isActive?"bg-indigo-600 text-white":"bg-indigo-600 text-white hover:text-gray-100"} block rounded-md px-5 py-2.5 text-sm font-medium  transition hover:bg-indigo-500 ml-5`} to="/login">User</NavLink>)
+              }
             </div>
           </div>
         </div>
