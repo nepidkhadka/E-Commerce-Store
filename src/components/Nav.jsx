@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import {Link, NavLink } from "react-router-dom";
 import {useSelector } from "react-redux";
 
 const Nav = () => {
-
+  
   const cartProduct = useSelector(state=>state.cart);
-  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("userdata"))
 
   return (
     <header className="bg-gray-400 sticky z-10 top-0 left-0">
@@ -33,7 +33,14 @@ const Nav = () => {
               </NavLink>
 
               {
-                token==null? (<NavLink className={({isActive})=>`${isActive?"bg-indigo-600 text-white":"bg-indigo-600 text-white hover:text-gray-100"} block rounded-md px-5 py-2.5 text-sm font-medium  transition hover:bg-indigo-500 ml-5`} to="/login">Login</NavLink>) : (<NavLink className={({isActive})=>`${isActive?"bg-indigo-600 text-white":"bg-indigo-600 text-white hover:text-gray-100"} block rounded-md px-5 py-2.5 text-sm font-medium  transition hover:bg-indigo-500 ml-5`} to="/login">User</NavLink>)
+                user==null? 
+                (<NavLink className={({isActive})=>`${isActive?"bg-indigo-600 text-white":"bg-indigo-600 text-white hover:text-gray-100"} block rounded-md px-5 py-2.5 text-sm font-medium  transition hover:bg-indigo-500 ml-5`} to="/login">Login</NavLink>) 
+                : 
+                (
+                  <Link className="ml-10" >
+                  <img src={user.image} className="rounded-xl h-full w-10 bg-indigo-500"  alt="" />
+                  </Link>
+                )
               }
             </div>
           </div>
