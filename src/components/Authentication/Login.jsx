@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../Store/userSlice";
 
 const Login = () => {
-  const { loading } = useSelector((state) => state.user);
+  const { loading, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [user, setuser] = useState({
@@ -18,14 +18,19 @@ const Login = () => {
     const { name, value } = e.target;
     setuser({ ...user, [name]: value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(user)).then((result) => {
-      if (result.payload) {
-        setuser("");
-        navigate("/");
-      }
-    });
+    dispatch(login(user))
+      .then((result) => {
+        if (result.payload) {
+          setuser("");
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log("Error From Login");
+      });
 
     // axios.post("https://dummyjson.com/auth/login",{
     //     username:user.username,
@@ -42,7 +47,7 @@ const Login = () => {
     // })
   };
 
-  if (loading===true)
+  if (loading === true)
     return (
       <div className="absolute left-2/4 top-1/2">
         <div
@@ -56,9 +61,11 @@ const Login = () => {
       </div>
     );
 
+ 
+
   return (
     <section className="flex flex-col md:flex-row justify-center items-center h-[90vh]">
-      <div className="bg-white w-full md:max-w-md lg:max-w-full md:w-1/2 xl:w-1/3 px-6 lg:px-16 xl:px-12 flex items-center justify-center">
+      <div className="bg-white w-full md:max-w-md lg:max-w-full md:w-1/2 xl:w-1/3 px-6 lg:px-16 xl:px-12 flex flex-col items-center justify-center">
         <div className="w-full h-100">
           <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12">
             Log in to your account
@@ -67,7 +74,6 @@ const Login = () => {
             <div>
               <label className="block text-gray-700">Username</label>
               <input
-              
                 type="text"
                 onChange={handleChange}
                 value={user.username}
@@ -112,6 +118,34 @@ const Login = () => {
             </a>
           </p>
         </div>
+        {
+           error!==null?(
+            <div
+            role="alert"
+            className="rounded border-s-4 w-full border-red-500 bg-red-50 p-4 my-3"
+          >
+            <div className="flex items-center gap-2 text-red-800">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-5 w-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                  clipRule="evenodd"
+                />
+              </svg>
+    
+              <strong className="block font-medium"> Login Failed </strong>
+            </div>
+    
+            <p className="mt-2 text-sm text-red-700">{error}</p>
+          </div>
+           )
+            :""
+        }
       </div>
     </section>
   );
